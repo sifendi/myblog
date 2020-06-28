@@ -33,7 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 					//Set Message
 					$this->session->set_flashdata('success', 'Welcome to administrator Dashboard.');
-					redirect('administrator/dashboard');
+					redirect('administrator');
 				}else{
 					$this->session->set_flashdata('danger', 'Username / Passord in invalid!');
 					redirect('auth');
