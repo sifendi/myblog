@@ -1,4 +1,6 @@
 <?php 
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 	class Auth extends CI_Controller{
 
 		public function index(){
@@ -6,25 +8,17 @@
 		}
 
 
-		public function adminLogin(){
-			$this->form_validation->set_rules('email', 'Email', 'required');
-			$this->form_validation->set_rules('password', 'Password', 'required');
-
+		public function login(){
+			$this->form_validation->set_rules('username', 'Username', 'required');
+			$this->form_validation->set_rules('pass', 'Password', 'required');
 			if($this->form_validation->run() === FALSE){
-				//$data['title'] = ucfirst($page);
-				$this->load->view('administrator/header-script');
-				//$this->load->view('administrator/header');
-				//$this->load->view('administrator/header-bottom');
-				$this->load->view('administrator/index', $data);
-				$this->load->view('administrator/footer');
+				redirect('Welcome');
 			}else{
 				// get email and Encrypt Password
-				$email = $this->input->post('email');
-				$encrypt_password = md5($this->input->post('password'));
-
-				$user_id = $this->Administrator_Model->adminLogin($email, $encrypt_password);
-				$sitelogo = $this->Administrator_Model->update_siteconfiguration(1);
-
+				$username = $this->input->post('username');
+				$encrypt_password = md5($this->input->post('pass'));
+				$user_id = $this->User_Model->login($username, $encrypt_password);
+				// echo $user_id->username;exit;
 				if ($user_id && $user_id->role_id == 1) {
 					//Create Session
 					$user_data = array(
@@ -33,24 +27,22 @@
 				 				'email' => $user_id->email,
 				 				'login' => true,
 				 				'role' => $user_id->role_id,
-				 				'image' => $user_id->image,
-				 				'site_logo' => $sitelogo['logo_img']
+				 				'image' => $user_id->image
 				 	);
-
 				 	$this->session->set_userdata($user_data);
 
 					//Set Message
 					$this->session->set_flashdata('success', 'Welcome to administrator Dashboard.');
 					redirect('administrator/dashboard');
 				}else{
-					$this->session->set_flashdata('danger', 'Login Credential in invalid!');
-					redirect('administrator/index');
+					$this->session->set_flashdata('danger', 'Username / Passord in invalid!');
+					redirect('auth');
 				}
 				
 			}
 		}
 
-				// log admin out
+		// log admin out
 		public function logout(){
 			// unset user data
 			$this->session->unset_userdata('login');
@@ -59,11 +51,10 @@
 			$this->session->unset_userdata('role_id');
 			$this->session->unset_userdata('email');
 			$this->session->unset_userdata('image');
-			$this->session->unset_userdata('site_logo');
 
 			//Set Message
 			$this->session->set_flashdata('success', 'You are logged out.');
-			redirect(base_url().'administrator/index');
+			redirect(base_url().'auth');
 		}
 
 // 		public function forget_password($page = 'forget-password'){
