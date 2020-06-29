@@ -106,7 +106,7 @@
                                     </a>
                                 </li> -->
                                 <li>
-                                    <a href="#!">
+                                    <a href="<?php base_url()?>auth/logout">
                                         <i class="ti-layout-sidebar-left"></i> Logout
                                     </a>
                                 </li>

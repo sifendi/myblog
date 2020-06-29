@@ -21,7 +21,7 @@
                         <!-- Default select start -->
 
                 <form action="<?php echo base_url('write/save'); ?>" method="post" 
-                    class="login100-form validate-form">
+                    class="login100-form validate-form" enctype="multipart/form-data">
                         <div class="card">
                             <div class="card-header">
                                 <h5>Create New Post</h5>
@@ -56,6 +56,22 @@
 
 
                                 <!-- ISIAN KEDUA -->
+                                <div class="row">
+                                     <div class="col-sm-12 col-xl-6">
+                                        <h4 class="sub-title">Image  (Gambar)</h4>
+                                            <div class="input-group">
+                                                <input type="file" name="userfile" size="20">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-12 col-xl-6 ">
+                                    </div>
+                                </div>
+
+
+
+                                <!-- ISIAN KETIGA -->
                                 <div class="row">
                                     <div class="col-sm-12 ">
                                         <h4 class="sub-title">Body (Isi Tulisan)</h4>

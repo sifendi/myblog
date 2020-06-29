@@ -58,7 +58,7 @@
 
 				//Set Message
 				$this->session->set_flashdata('post_created', 'Your post has been created.');
-				redirect('posts');
+				redirect('write');
 			}
 			
 		}
